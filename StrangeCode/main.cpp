@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+using namespace std;
 
 template <typename T = char> size_t CreateArrayAtMemory(void*, size_t bs)
 {
@@ -34,8 +35,11 @@ size_t CreateArrayAtMemory(void* p, size_t bs, Args ... args)
 int main(){
     int j = 0x21;
     size_t n2 = CreateArrayAtMemory<short>(nullptr,2,3);
-    vector<char> a2(n2);
-    short** f2 = (short**)a2.data();
+    //vector<char> a2(n2);
+    char* a2 = new char[n2];
+
+    //short** f2 = (short**)a2.data();
+    short** f2 = (short**)a2;
     CreateArrayAtMemory<short>(f2,2,3);
     for (int i1 = 0; i1 < 2; i1++)
     {
@@ -54,6 +58,7 @@ int main(){
     }
     std::cout << std::endl << n2 << " bytes used " << std::endl;
     std::cout << std::endl;
+    delete[] a2;
 
     return 0;
 }
